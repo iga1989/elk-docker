@@ -198,3 +198,11 @@ EXPOSE 5601 9200 9300 9600 5044
 VOLUME /var/lib/elasticsearch
 
 CMD [ "/usr/local/bin/start.sh" ]
+
+FROM sebp/elk
+
+ENV ES_HOME /opt/elasticsearch
+WORKDIR ${ES_HOME}
+
+RUN yes | CONF_DIR=/etc/elasticsearch gosu elasticsearch bin/elasticsearch-plugin \
+    install -b <plugin name or link>
